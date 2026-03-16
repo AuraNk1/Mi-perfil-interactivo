@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<title>Mi Perfil</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg,#6a5acd,#b19cd9);
+margin:0;
+text-align:center;
+color:#333;
+}
+
+h1{
+color:white;
+margin-top:30px;
+}
+
+.seccion{
+background:white;
+margin:20px auto;
+padding:20px;
+width:60%;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+button{
+padding:10px 15px;
+border:none;
+border-radius:5px;
+background:#6a5acd;
+color:white;
+cursor:pointer;
+margin:5px;
+}
+
+button:hover{
+background:#5941c9;
+}
+
+/* VENTANA DEL JUEGO */
+
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+justify-content:center;
+align-items:center;
+}
+
+.contenidoModal{
+background:white;
+padding:30px;
+border-radius:10px;
+text-align:center;
+}
+
+#animacion{
+font-size:60px;
+margin:20px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<h1>Mi Perfil Interactivo</h1>
+
+<div class="seccion">
+<h2>Información básica</h2>
+
+<p><b>Nombre:</b> Aura Nikolle Díaz Mendoza</p>
+<p><b>Edad:</b> 19</p>
+<p><b>Cumpleaños:</b> 2 de Septiembre</p>
+<p><b>Color favorito:</b> Negro y rosa</p>
+<p><b>Comida favorita:</b> Sushi</p>
+
+</div>
+
+
+<div class="seccion">
+<h2>Mis intereses</h2>
+
+<ul>
+<li>Jugar videojuegos 🎮</li>
+<li>Escuchar música 🎧</li>
+<li>Aprender programación 💻</li>
+<li>Ver series animadas 🍿</li>
+<li>Coleccionar Monster High</li>
+</ul>
+
+</div>
+
+
+<div class="seccion">
+<h2>Datos curiosos sobre mí</h2>
+
+<p>Me gusta aprender cosas nuevas</p>
+<p>Hablar de temas conspiranoicos: illuminatis, extraterrestres, paranormal, duendes, backrooms, mitos.</p>
+<p>Puedo pasar muchas horas jugando videojuegos.</p>
+<p>Siempre intento aprender algo nuevo.</p>
+<p>Siempre intento ser fuerte...</p>
+
+</div>
+
+
+<div class="seccion">
+<h2>Mi cita favorita</h2>
+
+<p>"Nunca dejes de aprender."</p>
+<p>"No te rindas."</p>
+
+</div>
+
+
+<div class="seccion">
+<h2>Mi lema de vida</h2>
+
+<p>Intentar siempre, incluso cuando es difícil.</p>
+
+</div>
+
+
+<div class="seccion">
+<h2>Si tuviera un superpoder sería...</h2>
+
+<p>Volar</p>
+<p>Teletransportarme</p>
+<p>Invisibilidad</p>
+<p>Detener el tiempo</p>
+
+</div>
+
+
+<div class="seccion">
+<h2>¿Te gusta mi perfil?</h2>
+
+<button onclick="darLike()">👍 Me gusta</button>
+
+<p>Total de likes: <span id="contador">0</span></p>
+
+</div>
+
+
+<div class="seccion">
+
+<h2>🎮 Mini juego</h2>
+
+<p>Si llegaste hasta aquí, juega conmigo piedra, papel o tijera 😄</p>
+
+<button onclick="abrirJuego()">Jugar</button>
+
+</div>
+
+
+<!-- VENTANA DEL JUEGO -->
+
+<div id="ventanaJuego" class="modal">
+
+<div class="contenidoModal">
+
+<h2>Piedra, Papel o Tijera</h2>
+
+<p id="animacion">❔</p>
+
+<button onclick="jugar('piedra')">🪨 Piedra</button>
+<button onclick="jugar('papel')">📄 Papel</button>
+<button onclick="jugar('tijera')">✂️ Tijera</button>
+
+<p id="resultado"></p>
+
+<button onclick="cerrarJuego()">Cerrar</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* BOTON LIKE */
+
+let likes = 0;
+
+function darLike(){
+
+likes++;
+document.getElementById("contador").innerText = likes;
+
+}
+
+
+/* ABRIR Y CERRAR JUEGO */
+
+function abrirJuego(){
+document.getElementById("ventanaJuego").style.display="flex";
+}
+
+function cerrarJuego(){
+document.getElementById("ventanaJuego").style.display="none";
+}
+
+
+/* JUEGO */
+
+function jugar(eleccionUsuario){
+
+let opcionesEmoji = ["🪨","📄","✂️"];
+let nombres = ["piedra","papel","tijera"];
+
+let animacion = document.getElementById("animacion");
+let resultado = document.getElementById("resultado");
+
+let contador = 0;
+
+let intervalo = setInterval(function(){
+
+animacion.textContent = opcionesEmoji[Math.floor(Math.random()*3)];
+
+contador++;
+
+if(contador > 10){
+
+clearInterval(intervalo);
+
+let indice = Math.floor(Math.random()*3);
+let computadora = nombres[indice];
+
+animacion.textContent = opcionesEmoji[indice];
+
+if(eleccionUsuario === computadora){
+
+resultado.innerText = "😐 Empate";
+
+}
+
+else if(
+
+(eleccionUsuario==="piedra" && computadora==="tijera") ||
+(eleccionUsuario==="papel" && computadora==="piedra") ||
+(eleccionUsuario==="tijera" && computadora==="papel")
+
+){
+
+resultado.innerText = "🎉 ¡Ganaste!";
+
+}
+
+else{
+
+resultado.innerText = "💀 Perdiste";
+
+}
+
+}
+
+},100);
+
+}
+
+</script>
+
+</body>
+
+</html>
+
